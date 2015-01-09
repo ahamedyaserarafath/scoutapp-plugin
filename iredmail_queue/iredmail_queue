@@ -1,0 +1,12 @@
+ass MailQueue < Scout::Plugin
+  def build_report
+    mailq_output = `/usr/bin/mailq | tail -1`
+    if mailq_output.match('Mail queue is empty')
+      num = 0
+    else
+      arr=mailq_output.split(' ')
+      num=arr[-2]
+    end
+    report(:queues=>num)
+  end
+end
